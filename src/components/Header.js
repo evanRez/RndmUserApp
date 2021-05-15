@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 
@@ -63,8 +63,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = () => {
+const Header = ({ setSeed }) => {
   const classes = useStyles();
+  const [seedVal, setSeedVal] = useState("");
+
+  const handleChange = (e) => {
+    setSeedVal(e.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSeed(seedVal);
+
+    setSeedVal("");
+  };
 
   return (
     <div className={classes.root}>
@@ -77,14 +89,18 @@ const Header = () => {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
+            <form onSubmit={handleSubmit}>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+                onChange={handleChange}
+                value={seedVal}
+              />
+            </form>
           </div>
         </Toolbar>
       </AppBar>

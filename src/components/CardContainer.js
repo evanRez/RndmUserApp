@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CardContainer = () => {
+const CardContainer = ({ seed }) => {
   const classes = useStyles();
 
   const [data, setData] = useState({ results: [] });
@@ -38,7 +38,7 @@ const CardContainer = () => {
 
   const fetchData = async (pageNumber) => {
     const res = await axios(
-      `https://randomuser.me/api/?page=${pageNumber}&results=9&seed=abc`
+      `https://randomuser.me/api/?page=${pageNumber}&results=9&seed=${seed}`
     );
     setData(() => res.data.results);
   };
